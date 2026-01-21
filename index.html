@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QA 메일 템플릿 생성기</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+      color: white;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid rgba(71, 85, 105, 0.5);
+      backdrop-filter: blur(8px);
+      background: rgba(15, 23, 42, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .header-subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    input, select {
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #f59e0b;
+    }
+
+    button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      color: white;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.5);
+    }
+
+    .btn-primary.copied {
+      background: #22c55e;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: #475569;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #64748b;
+    }
+
+    .btn-small {
+      padding: 8px 16px;
+      background: #334155;
+      color: white;
+    }
+
+    .btn-small:hover {
+      background: #475569;
+    }
+
+    /* Main */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    section {
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    /* 게임 관리 */
+    .game-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .game-inputs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
+    .game-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .game-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+
+    .game-tag input {
+      background: transparent;
+      border: none;
+      padding: 0;
+      width: 80px;
+    }
+
+    .game-tag .version-input {
+      color: #fbbf24;
+      width: 70px;
+    }
+
+    .game-tag span {
+      color: #64748b;
+    }
+
+    .game-tag .remove-btn {
+      color: #64748b;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 0;
+      margin-left: 4px;
+    }
+
+    .game-tag .remove-btn:hover {
+      color: #f87171;
+    }
+
+    /* 테이블 */
+    .table-container {
+      background: rgba(30, 41, 59, 0.3);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background: rgba(245, 158, 11, 0.1);
+      border-bottom: 1px solid #334155;
+    }
+
+    th {
+      padding: 12px 16px;
+      text-align: center;
+      color: #fbbf24;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    th:first-child {
+      text-align: left;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(30, 41, 59, 0.2);
+    }
+
+    tbody tr.has-update {
+      background: rgba(250, 204, 21, 0.1);
+    }
+
+    td {
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+
+    td:first-child {
+      color: white;
+      font-weight: 500;
+    }
+
+    td:nth-child(2) {
+      text-align: center;
+      color: #cbd5e1;
+    }
+
+    td input, td select {
+      width: 100%;
+      background: rgba(51, 65, 85, 0.5);
+      text-align: center;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    td input.highlight {
+      border-color: rgba(250, 204, 21, 0.5);
+      color: #fde047;
+    }
+
+    td select.pass {
+      color: #4ade80;
+    }
+
+    td select.fail {
+      color: #f87171;
+      font-weight: bold;
+    }
+
+    /* 미리보기 */
+    .preview-container {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      color: black;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* 반응형 */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      th, td {
+        padding: 8px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div>
+        <h1 class="header-title">📧 QA 메일 템플릿 생성기</h1>
+        <p class="header-subtitle">에뮬레이터 테스트 결과 리포트</p>
+      </div>
+      <div class="header-actions">
+        <input type="text" id="reportDate" style="width: 100px;" placeholder="날짜">
+        <button class="btn-secondary" onclick="togglePreview()">
+          <span id="previewBtnText">👁️ 미리보기</span>
+        </button>
+        <button class="btn-primary" id="copyBtn" onclick="copyToClipboard()">HTML 복사</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 편집 모드 -->
+    <div id="editMode">
+      <!-- 게임 관리 -->
+      <section>
+        <div class="game-controls">
+          <h2>🎮 게임 목록</h2>
+          <div class="game-inputs">
+            <input type="text" id="newGameName" placeholder="게임명" style="width: 140px;">
+            <input type="text" id="newGameVersion" placeholder="버전" style="width: 120px;">
+            <button class="btn-small" onclick="addGame()">+ 추가</button>
+          </div>
+        </div>
+        <div class="game-list" id="gameList"></div>
+      </section>
+
+      <!-- 테이블 -->
+      <section class="table-container">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr id="tableHeader"></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- 미리보기 모드 -->
+    <div id="previewMode" class="hidden">
+      <section>
+        <h2>👁️ Outlook 미리보기</h2>
+        <div class="preview-container" id="previewContent"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // 에뮬레이터 목록 (고정)
+    const EMULATORS = [
+      { id: 'bluestacks5_rooting', name: 'BlueStacks 5 64bit (루팅)', android: '9.0' },
+      { id: 'bluestacks5', name: 'BlueStacks 5 64bit', android: '11.0' },
+      { id: 'nox_rooting', name: 'NOX 64bit (루팅)', android: '9.0' },
+      { id: 'nox', name: 'NOX 64bit', android: '12.0' },
+      { id: 'ldplayer', name: 'LDPlayer 64bit', android: '9.0' },
+      { id: 'memu_rooting', name: 'MEmu 64bit (루팅)', android: '9.0' },
+      { id: 'memu', name: 'MEmu 64bit', android: '12.0' },
+      { id: 'mumu', name: 'MuMuPlayer 64bit', android: '12.0' },
+    ];
+
+    // 상태
+    let versions = {};
+    let games = [
+      { id: 'game1', name: 'xGame', version: '1.25.2.7', results: {} },
+      { id: 'game2', name: 'HeirofLight', version: '1.25.2.4', results: {} },
+    ];
+    let isPreviewMode = false;
+
+    // 초기화
+    function init() {
+      // URL 쿼리스트링에서 버전 정보 파싱
+      const params = new URLSearchParams(window.location.search);
+      
+      EMULATORS.forEach(emu => {
+        const prev = params.get(`${emu.id}_prev`) || '';
+        const latest = params.get(`${emu.id}_latest`) || '';
+        versions[emu.id] = {
+          prevVersion: (!prev && !latest) ? '-' : (prev === latest ? '-' : prev || '-'),
+          latestVersion: (!prev && !latest) ? '-' : (prev === latest ? '-' : latest || '-'),
+        };
+      });
+
+      // 날짜 설정
+      const today = new Date();
+      const dateStr = `${today.getFullYear().toString().slice(2)}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
+      document.getElementById('reportDate').value = dateStr;
+
+      render();
+    }
+
+    // 렌더링
+    function render() {
+      renderGameList();
+      renderTable();
+    }
+
+    // 게임 목록 렌더링
+    function renderGameList() {
+      const container = document.getElementById('gameList');
+      container.innerHTML = games.map(game => `
+        <div class="game-tag">
+          <input type="text" value="${game.name}" onchange="updateGame('${game.id}', 'name', this.value)">
+          <span>[</span>
+          <input type="text" class="version-input" value="${game.version}" onchange="updateGame('${game.id}', 'version', this.value)">
+          <span>]</span>
+          <button class="remove-btn" onclick="removeGame('${game.id}')">×</button>
+        </div>
+      `).join('');
+    }
+
+    // 테이블 렌더링
+    function renderTable() {
+      // 헤더
+      const header = document.getElementById('tableHeader');
+      header.innerHTML = `
+        <th>제품명</th>
+        <th style="width: 80px;">Android</th>
+        <th style="width: 130px;">이전 버전</th>
+        <th style="width: 130px;">최신 버전</th>
+        ${games.map(g => `<th style="min-width: 90px;">${g.name}</th>`).join('')}
+      `;
+
+      // 바디
+      const body = document.getElementById('tableBody');
+      body.innerHTML = EMULATORS.map(emu => {
+        const ver = versions[emu.id] || { prevVersion: '-', latestVersion: '-' };
+        const hasUpdate = ver.prevVersion !== '-' && ver.latestVersion !== '-';
+        
+        return `
+          <tr class="${hasUpdate ? 'has-update' : ''}">
+            <td>${emu.name}</td>
+            <td>${emu.android}</td>
+            <td>
+              <input type="text" 
+                class="${hasUpdate ? 'highlight' : ''}" 
+                value="${ver.prevVersion}" 
+                onchange="updateVersion('${emu.id}', 'prevVersion', this.value)">
+            </td>
+            <td>
+              <input type="text" 
+                class="${hasUpdate ? 'highlight' : ''}" 
+                value="${ver.latestVersion}" 
+                onchange="updateVersion('${emu.id}', 'latestVersion', this.value)">
+            </td>
+            ${games.map(g => {
+              const result = g.results[emu.id] || '-';
+              const resultClass = result === 'PASS' ? 'pass' : result === 'FAIL' ? 'fail' : '';
+              return `
+                <td>
+                  <select class="${resultClass}" onchange="updateTestResult('${g.id}', '${emu.id}', this.value); this.className = this.value === 'PASS' ? 'pass' : this.value === 'FAIL' ? 'fail' : '';">
+                    <option value="-" ${result === '-' ? 'selected' : ''}>-</option>
+                    <option value="PASS" ${result === 'PASS' ? 'selected' : ''}>PASS</option>
+                    <option value="FAIL" ${result === 'FAIL' ? 'selected' : ''}>FAIL</option>
+                    <option value="N/T" ${result === 'N/T' ? 'selected' : ''}>N/T</option>
+                  </select>
+                </td>
+              `;
+            }).join('')}
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 게임 추가
+    function addGame() {
+      const nameInput = document.getElementById('newGameName');
+      const versionInput = document.getElementById('newGameVersion');
+      
+      if (!nameInput.value.trim()) return;
+      
+      games.push({
+        id: `game_${Date.now()}`,
+        name: nameInput.value.trim(),
+        version: versionInput.value.trim(),
+        results: {},
+      });
+      
+      nameInput.value = '';
+      versionInput.value = '';
+      render();
+    }
+
+    // 게임 삭제
+    function removeGame(gameId) {
+      games = games.filter(g => g.id !== gameId);
+      render();
+    }
+
+    // 게임 정보 수정
+    function updateGame(gameId, field, value) {
+      games = games.map(g => g.id === gameId ? { ...g, [field]: value } : g);
+      renderTable(); // 헤더 업데이트를 위해
+    }
+
+    // 테스트 결과 변경
+    function updateTestResult(gameId, emulatorId, result) {
+      games = games.map(g => 
+        g.id === gameId 
+          ? { ...g, results: { ...g.results, [emulatorId]: result } }
+          : g
+      );
+    }
+
+    // 버전 정보 수정
+    function updateVersion(emulatorId, field, value) {
+      versions[emulatorId] = {
+        ...versions[emulatorId],
+        [field]: value,
+      };
+      
+      // 하이라이트 업데이트를 위해 다시 렌더링
+      const ver = versions[emulatorId];
+      const hasUpdate = ver.prevVersion !== '-' && ver.latestVersion !== '-';
+      const row = document.querySelector(`tr:has(td:first-child:contains("${EMULATORS.find(e => e.id === emulatorId)?.name}"))`);
+      // 간단하게 전체 리렌더링
+      render();
+    }
+
+    // 미리보기 토글
+    function togglePreview() {
+      isPreviewMode = !isPreviewMode;
+      
+      document.getElementById('editMode').classList.toggle('hidden', isPreviewMode);
+      document.getElementById('previewMode').classList.toggle('hidden', !isPreviewMode);
+      document.getElementById('previewBtnText').textContent = isPreviewMode ? '편집 모드' : '👁️ 미리보기';
+      
+      if (isPreviewMode) {
+        document.getElementById('previewContent').innerHTML = generateHTML();
+      }
+    }
+
+    // HTML 생성
+    function generateHTML() {
+      const reportDate = document.getElementById('reportDate').value;
+      
+      const gameHeaders = games.map(g => 
+        `<th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC; text-align: center;">${g.name}[${g.version}]</th>`
+      ).join('\n            ');
+
+      const rows = EMULATORS.map(emu => {
+        const ver = versions[emu.id] || { prevVersion: '-', latestVersion: '-' };
+        const hasUpdate = ver.prevVersion !== '-' && ver.latestVersion !== '-';
+        const highlightStyle = hasUpdate ? 'background-color: #FFFF00;' : '';
+
+        const gameResults = games.map(g => {
+          const result = g.results[emu.id] || '-';
+          const textStyle = result === 'FAIL' ? 'color: red; font-weight: bold;' : '';
+          return `<td style="border: 1px solid #000; padding: 8px; text-align: center; ${textStyle}">${result}</td>`;
+        }).join('\n            ');
+
+        return `        <tr>
+            <td style="border: 1px solid #000; padding: 8px; ${highlightStyle}">${emu.name}</td>
+            <td style="border: 1px solid #000; padding: 8px; text-align: center;">${emu.android}</td>
+            <td style="border: 1px solid #000; padding: 8px; text-align: center; ${highlightStyle}">${ver.prevVersion}</td>
+            <td style="border: 1px solid #000; padding: 8px; text-align: center; ${highlightStyle}">${ver.latestVersion}</td>
+            ${gameResults}
+        </tr>`;
+      }).join('\n');
+
+      return `<p>안녕하세요 글로벌사업부 QA팀 정가연입니다.</p>
+<p>${reportDate} 날짜 기준 최신 테스트 에뮬레이터 환경 및 결과 공유드립니다.</p>
+<br>
+<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">제품명</th>
+            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">Android 버전</th>
+            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">이전 버전</th>
+            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">최신 버전</th>
+            ${gameHeaders}
+        </tr>
+    </thead>
+    <tbody>
+${rows}
+    </tbody>
+</table>`;
+    }
+
+    // 클립보드 복사
+    async function copyToClipboard() {
+      const html = generateHTML();
+      const btn = document.getElementById('copyBtn');
+      
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'text/html': new Blob([html], { type: 'text/html' }),
+            'text/plain': new Blob([html], { type: 'text/plain' }),
+          }),
+        ]);
+      } catch (err) {
+        await navigator.clipboard.writeText(html);
+      }
+      
+      btn.textContent = '✓ 복사됨!';
+      btn.classList.add('copied');
+      
+      setTimeout(() => {
+        btn.textContent = 'HTML 복사';
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+
+    // 엔터키로 게임 추가
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.target.id === 'newGameName' || e.target.id === 'newGameVersion')) {
+        addGame();
+      }
+    });
+
+    // 초기화 실행
+    init();
+  </script>
+</body>
+</html>
