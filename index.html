@@ -300,40 +300,48 @@
       const reportDate = document.getElementById('reportDate').value;
       const noteText = document.getElementById('noteText').value;
       
+      // Outlook 스타일 변수
+      const borderStyle = 'border: 1px solid rgb(171, 171, 171);';
+      const headerBg = 'background-color: #FFF2CC;';
+      const updateBg = 'background-color: #FFFF00;';
+      const fontStyle = 'font-family: Aptos, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);';
+      const cellStyle = `${borderStyle} padding: 8px; text-align: center; vertical-align: middle;`;
+      
       const gameHeaders = games.map(g => 
-        `<th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC; text-align: center;">${g.name}[${g.version}]</th>`
+        `<th style="${cellStyle} ${headerBg} ${fontStyle}">${g.name}[${g.version}]</th>`
       ).join('');
 
       const rows = EMULATORS.map(emu => {
         const ver = versions[emu.id] || { prevVersion: '-', latestVersion: '-' };
         const hasUpdate = ver.prevVersion !== '-' && ver.latestVersion !== '-' && ver.prevVersion !== ver.latestVersion;
-        const yellow = 'background-color: #FFFF00;';
 
         const gameResults = games.map(g => {
           const result = g.results[emu.id] || '-';
-          const style = result === 'FAIL' ? 'color: red; font-weight: bold;' : '';
-          return `<td style="border: 1px solid #000; padding: 8px; text-align: center; ${style}">${result}</td>`;
+          const textStyle = result === 'FAIL' ? 'color: red;' : '';
+          return `<td style="${cellStyle} ${fontStyle} ${textStyle}">${result}</td>`;
         }).join('');
 
         return `<tr>
-            <td style="border: 1px solid #000; padding: 8px; ${hasUpdate ? yellow : ''}">${emu.name}</td>
-            <td style="border: 1px solid #000; padding: 8px; text-align: center;">${emu.android}</td>
-            <td style="border: 1px solid #000; padding: 8px; text-align: center; ${hasUpdate ? yellow : ''}">${ver.prevVersion}</td>
-            <td style="border: 1px solid #000; padding: 8px; text-align: center; ${hasUpdate ? yellow : ''}">${ver.latestVersion}</td>
+            <td style="${cellStyle} ${fontStyle} ${hasUpdate ? updateBg : ''}">${emu.name}</td>
+            <td style="${cellStyle} ${fontStyle}">${emu.android}</td>
+            <td style="${cellStyle} ${fontStyle} ${hasUpdate ? updateBg : ''}">${ver.prevVersion}</td>
+            <td style="${cellStyle} ${fontStyle} ${hasUpdate ? updateBg : ''}">${ver.latestVersion}</td>
             ${gameResults}
         </tr>`;
       }).join('\n');
 
-      let html = `<p>안녕하세요 글로벌사업부 QA팀 정가연입니다.</p>
+      let html = `<div style="${fontStyle}">
+<p>안녕하세요 글로벌사업부 QA팀 정가연입니다.</p>
 <p>${reportDate} 날짜 기준 최신 테스트 에뮬레이터 환경 및 결과 공유드립니다.</p>
 <br>
-<table style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+</div>
+<table style="border-collapse: collapse;">
     <thead>
         <tr>
-            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">제품명</th>
-            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">Android 버전</th>
-            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">이전 버전</th>
-            <th style="border: 1px solid #000; padding: 8px; background-color: #FFF2CC;">최신 버전</th>
+            <th style="${cellStyle} ${headerBg} ${fontStyle}">제품명</th>
+            <th style="${cellStyle} ${headerBg} ${fontStyle}">Android 버전</th>
+            <th style="${cellStyle} ${headerBg} ${fontStyle}">이전 버전</th>
+            <th style="${cellStyle} ${headerBg} ${fontStyle}">최신 버전</th>
             ${gameHeaders}
         </tr>
     </thead>
@@ -343,7 +351,17 @@ ${rows}
 </table>`;
 
       if (noteText.trim()) {
-        html += `<br><p style="font-family: Arial, sans-serif; font-size: 14px; white-space: pre-wrap;">${noteText}</p>`;
+        // 줄바꿈 처리 및 URL 링크 변환
+        const formattedNote = noteText
+          .split('\n')
+          .map(line => {
+            // URL을 링크로 변환
+            return line.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>');
+          })
+          .join('<br>');
+        html += `<br><ul style="margin-top: 0; margin-bottom: 0;"><li style="${fontStyle}">
+${formattedNote}
+</li></ul>`;
       }
       return html;
     }
