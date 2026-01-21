@@ -375,19 +375,19 @@ ${testDate} 날짜 기준 최신 테스트 에뮬레이터 환경&nbsp; 및 결�
 
             // 헤더 행
             html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; width: 183.5px; height: 32.24px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 제품명</div>
 </td>
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; width: 110.18px; height: 32.24px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 Android 버전</div>
 </td>
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; width: 256.81px; height: 32.24px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 이전 버전</div>
 </td>
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(204, 204, 204); vertical-align: middle; width: 183.5px; height: 32.24px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 최신 버전</div>
 </td>`;
@@ -395,7 +395,7 @@ Android 버전</div>
             // 게임 헤더
             games.forEach(game => {
                 html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(245, 212, 39); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); background-color: rgb(245, 212, 39); vertical-align: middle; width: 183.5px; height: 32.24px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 ${game.name}[${game.version}]</div>
 </td>`;
@@ -429,13 +429,13 @@ ${game.name}[${game.version}]</div>
                 // 제품명
                 if (hasUpdate) {
                     html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 183.5px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 <span style="background-color: rgb(255, 255, 0);">${emu.name}</span></div>
 </td>`;
                 } else {
                     html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 183.5px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 ${emu.name}</div>
 </td>`;
@@ -443,7 +443,7 @@ ${emu.name}</div>
 
                 // Android 버전
                 html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 110.18px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 ${emu.android}</div>
 </td>`;
@@ -451,13 +451,13 @@ ${emu.android}</div>
                 // 이전 버전
                 if (hasUpdate) {
                     html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 256.81px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 <span style="background-color: rgb(255, 255, 0);">${prevVersion}</span></div>
 </td>`;
                 } else {
                     html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 256.81px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 ${prevVersion}</div>
 </td>`;
@@ -466,13 +466,13 @@ ${prevVersion}</div>
                 // 최신 버전
                 if (hasUpdate) {
                     html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 183.5px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 <span style="background-color: rgb(255, 255, 0);">${latestVersion}</span></div>
 </td>`;
                 } else {
                     html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 183.5px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
 ${latestVersion}</div>
 </td>`;
@@ -495,7 +495,7 @@ ${latestVersion}</div>
                     }
 
                     html += `
-<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; padding: 8px;">
+<td style="direction: ltr; text-align: center; border-width: 1px; border-style: solid; border-color: rgb(171, 171, 171); vertical-align: middle; width: 183.5px; height: 27.46px; box-sizing: border-box;">
 <div style="direction: ltr; text-align: center; margin: 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; ${resultStyle}">
 ${resultText}</div>
 </td>`;
